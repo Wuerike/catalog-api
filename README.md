@@ -1,10 +1,10 @@
-
 # Catalog API
 
 ## Description
 
 *What it does:*
 Its a CRUD to manage a catalog of itens stored in a instace of MongoDB, with the following operations:
+
 - Insert item
 - Get all items
 - Get specific item
@@ -12,24 +12,40 @@ Its a CRUD to manage a catalog of itens stored in a instace of MongoDB, with the
 - Delete specific item
 
 ## Dependencies/Requirements
+
 - .NET Core 6.0
 - MongoDB instance
 
 ## Getting Started
 
 ### Configuration
-- The application is configured through the .Net secret manager. The secrets-example.json is a model for the needed configuration,you should:
-  - Duplicate the **secrets-example.json** renaming to **secrets.json**
-  - Add your local configurations / variables 
-  - Execute `cat secrets.json | dotnet user-secrets set`
 
-### Building and Running via Visual Studio Code
+- The application secrets are configured through an .env file, to configure the app you should:
+  - Duplicate the **example.env** renaming to **.env**
+  - Fulfill it with your local variables
+  - Execute `source .env`
 
-With the API folder opened at VS Code, hit F5 button to run the application in debug mode.
+### Running Method Options
+
+#### Dotnet CLI
+
+Execute `dotnet run` in the terminal
+
+#### Debug mode
+
+With the API folder opened at VS Code, hit F5 button to run the application in debug mode. Similar functionality could be found in others editors / IDEs.
+
+#### Docker
+
+The command to run with docker is inside the makefile, just need execute `make build` and `make run`
+
+#### Docker-compose
+
+With docker-compose the app could be runned by executing `docker-compose up --build`
 
 ## Availables Endpoints
 
-Being the default base URL `https://localhost:5001`:
+Being the default base URL `https://localhost:5000`:
 
 - GET **/swagger**: Auto generated swagger webpag documentation
 - GET **/health/live**: Check if the API is alive
