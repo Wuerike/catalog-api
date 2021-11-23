@@ -1,21 +1,18 @@
 namespace Catalog_api.Settings
 {
-    
     public class MongoDbSettings
     {
-        public string? Host { get; set; }
-        public string? Port { get; set; }
-        public string? User { get; set; }
-        public string? Password { get; set; }
-
         public string? ConnectionString 
         { 
             get
             {
-                return $"mongodb://{User}:{Password}@{Host}:{Port}";
+                var protocol = Environment.GetEnvironmentVariable("MONGO_PROTOCOL");
+                var host = Environment.GetEnvironmentVariable("MONGO_HOST");
+                var port = Environment.GetEnvironmentVariable("MONGO_PORT");
+                var user = Environment.GetEnvironmentVariable("MONGO_USER");
+                var password = Environment.GetEnvironmentVariable("MONGO_PASSWORD");
+                return $"{protocol}://{user}:{password}@{host}:{port}";
             }
         }
-
     }
-} 
-
+}

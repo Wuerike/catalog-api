@@ -7,9 +7,12 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using dotenv.net;
+
+DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
-var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+var mongoDbSettings = new MongoDbSettings();
 
 // Define the app GUID as standard
 BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
@@ -41,7 +44,6 @@ builder.Services.AddSingleton<IMongoClient>(ServiceProvider =>
         return new MongoClient(mongoDbSettings.ConnectionString);
     }
 );
-
 
 var app = builder.Build();
 
