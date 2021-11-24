@@ -41,7 +41,7 @@ The command to run with docker is inside the makefile, just need execute `make b
 
 #### Docker-compose
 
-With docker-compose the app could be runned by executing `docker-compose up --build`
+With this option you can run both the API and an instance of MongoDB, just need execute `docker-compose up --build`
 
 ## Availables Endpoints
 
