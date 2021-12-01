@@ -13,6 +13,5 @@ RUN dotnet publish "catalog-api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY .env /app
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "catalog-api.dll"]
