@@ -7,9 +7,6 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using dotenv.net;
-
-DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 var mongoDbSettings = new MongoDbSettings();
