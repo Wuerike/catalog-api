@@ -23,29 +23,34 @@ Its a CRUD to manage a catalog of itens stored in a instace of MongoDB, with the
 - The application secrets are configured through an .env file, to configure the app you should:
   - Duplicate the **example.env** renaming to **.env**
   - Fulfill it with your local variables
-  - Execute `source .env`
+  - The usage of this file will depend on how you gonna run the app
 
 ### Running Method Options
 
-#### Dotnet CLI
+#### .Net CLI
 
-Execute `dotnet run` in the terminal
+By executing `make local-run` the makefile will handle the exportation of the .env file and will run the app with the .Net CLI.
 
-#### Debug mode
-
-With the API folder opened at VS Code, hit F5 button to run the application in debug mode. Similar functionality could be found in others editors / IDEs.
+- This method requires you to set up your own MongoDB instance
 
 #### Docker
 
-The command to run with docker is inside the makefile, just need execute `make build` and `make run`
+By executing `make docker-build` the makefile will build a docker image for this application and with `make docker-run` it will handle the executing of this image while passing the .env as environment variables.
+
+- This method requires you to set up your own MongoDB instance
 
 #### Docker-compose
 
-With this option you can run both the API and an instance of MongoDB, just need execute `docker-compose up --build`
+By executing `docker-compose up --build` docker compose will raise conteiners for both application and MongoDB.
+
+#### Deploy on Kubernetes
+
+If you have a local setup for kubernetes, like [Minikube](https://minikube.sigs.k8s.io/docs/start/), you can deploy this application by executing `make kube-deploy` and will be raised pods for both application and MongoDB.
+- Its important you to guarantee your local kubernetes cluster can expose **LoadBalancer** service type, on Minikube it can be done with [minikube tunnel](https://minikube.sigs.k8s.io/docs/handbook/accessing/#loadbalancer-access).
 
 ## Availables Endpoints
 
-Being the default base URL `https://localhost:5000`:
+The default base URL is `https://localhost:5000`, and when running with kubernets the base URL and port can be found by executing `kubectl get svc`.
 
 - GET **/swagger**: Auto generated swagger webpag documentation
 - GET **/health/live**: Check if the API is alive
