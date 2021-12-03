@@ -1,4 +1,4 @@
-namespace Catalog_api.Models
+namespace CatalogApi.Models
 {
 
     public record Item{

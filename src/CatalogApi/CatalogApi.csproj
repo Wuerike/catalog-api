@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>catalog_api</RootNamespace>
+    <RootNamespace>CatalogApi</RootNamespace>
     <UserSecretsId>cceb63bb-39f5-4c0a-833f-07d8e2fa5f6e</UserSecretsId>
   </PropertyGroup>
 

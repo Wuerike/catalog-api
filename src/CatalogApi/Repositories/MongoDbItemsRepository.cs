@@ -1,8 +1,8 @@
-using Catalog_api.Models;
+using CatalogApi.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Catalog_api.Repositories
+namespace CatalogApi.Repositories
 {
     public class MongoDbItemsRepository : IItemsRepository
     {

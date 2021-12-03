@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 local-run:
-	set -a && source .env && set +a && dotnet run
+	set -a && source .env && set +a && cd src/CatalogApi && dotnet run
 
 docker-build:
 	docker build -t catalog-api:v1 .

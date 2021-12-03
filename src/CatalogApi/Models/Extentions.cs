@@ -1,6 +1,6 @@
-using Catalog_api.Dtos;
+using CatalogApi.Dtos;
 
-namespace Catalog_api.Models
+namespace CatalogApi.Models
 {
 
     public static class Extentions

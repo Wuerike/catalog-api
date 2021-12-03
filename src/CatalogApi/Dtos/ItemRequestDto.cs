@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Catalog_api.Dtos
+namespace CatalogApi.Dtos
 {
 
     public record ItemRequestDto{
