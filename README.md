@@ -25,7 +25,11 @@ Its a CRUD to manage a catalog of itens stored in a instace of MongoDB, with the
   - Fulfill it with your local variables
   - The usage of this file will depend on how you gonna run the app
 
-### Running Method Options
+### Unit tests
+
+Execute `make test` on your terminal to run the unit tests
+
+### Running Methods
 
 #### .Net CLI
 
