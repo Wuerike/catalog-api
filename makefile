@@ -1,5 +1,8 @@
 SHELL := /bin/bash
 
+test:
+	cd src/CatalogApiTests && dotnet test
+
 local-run:
 	set -a && source .env && set +a && cd src/CatalogApi && dotnet run
 
