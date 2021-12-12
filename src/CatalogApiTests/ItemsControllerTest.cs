@@ -93,4 +93,29 @@ public class ItemsControllerTests
         createdItem.Id.Should().NotBeEmpty();
         createdItem.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, System.TimeSpan.FromSeconds(1));
     }
+
+    [Fact]
+    public async Task UpdateItemAsync_WithExistingItem_ReturnsNoContent()
+    {
+        var existingItem = CreateRandomItem();
+        var itemToUpdate = CreateRandomItemRequestDto();
+
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((existingItem));
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.UpdateItemAsync(Guid.NewGuid(), itemToUpdate);
+        result.Should().BeOfType<NoContentResult>();
+    }
+
+    [Fact]
+    public async Task UpdateItemAsync_WithNoExistingItem_ReturnsNotFound()
+    {
+        var itemToUpdate = CreateRandomItemRequestDto();
+
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((Item)null);
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.UpdateItemAsync(Guid.NewGuid(), itemToUpdate);
+        result.Should().BeOfType<NotFoundResult>();
+    }
 }
