@@ -60,20 +60,17 @@ namespace CatalogApi.Controllers
         [HttpPut("{id}")] // PUT /items/{id}
         public async Task<ActionResult> UpdateItemAsync(Guid id, ItemRequestDto request)
         {
-            var actualItem = await repository.GetItemAsync(id);
+            var itemToUpdate = await repository.GetItemAsync(id);
 
-            if (actualItem is null)
+            if (itemToUpdate is null)
             {
                 return NotFound();
             }
 
-            Item updatedItem = actualItem with
-            {
-                Name = request.Name,
-                Price = request.Price
-            };
+            itemToUpdate.Name = request.Name;
+            itemToUpdate.Price = request.Price;
 
-            await repository.UpdateItemAsync(updatedItem);
+            await repository.UpdateItemAsync(itemToUpdate);
             return NoContent();
         }
 
