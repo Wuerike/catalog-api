@@ -29,11 +29,11 @@ public class ItemsControllerTests
 
     private ItemRequestDto CreateRandomItemRequestDto()
     {
-        return new()
-        {
-            Name = Guid.NewGuid().ToString(),
-            Price = Rand.Next(1000)
-        };
+        return new ItemRequestDto
+        (
+            Guid.NewGuid().ToString(),
+            Rand.Next(1000)
+        );
     }
 
     [Fact]
@@ -55,10 +55,7 @@ public class ItemsControllerTests
         var controller = new ItemsController(repositoryStub.Object);
 
         var result = await controller.GetItemAsync(Guid.NewGuid());
-        result.Value.Should().BeEquivalentTo(
-            expectedItem,
-            options => options.ComparingByMembers<Item>()
-        );
+        result.Value.Should().BeEquivalentTo(expectedItem);
     }
 
     [Fact]
@@ -70,10 +67,7 @@ public class ItemsControllerTests
         var controller = new ItemsController(repositoryStub.Object);
 
         var result = await controller.GetItemsAsync();
-        result.Value.Should().BeEquivalentTo(
-            expectedItems,
-            options => options.ComparingByMembers<Item>()
-        );
+        result.Value.Should().BeEquivalentTo(expectedItems);
     }
 
     [Fact]
@@ -86,10 +80,7 @@ public class ItemsControllerTests
         var result = await controller.CreateItemAsync(itemToCreate);
         var createdItem = (result.Result as CreatedAtActionResult).Value as ItemResponseDto;
 
-        createdItem.Should().BeEquivalentTo(
-            itemToCreate,
-            options => options.ComparingByMembers<ItemResponseDto>().ExcludingMissingMembers()
-        );
+        createdItem.Should().BeEquivalentTo(itemToCreate);
         createdItem.Id.Should().NotBeEmpty();
         createdItem.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, System.TimeSpan.FromSeconds(1));
     }
