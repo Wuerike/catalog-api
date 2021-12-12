@@ -27,6 +27,15 @@ public class ItemsControllerTests
         };
     }
 
+    private ItemRequestDto CreateRandomItemRequestDto()
+    {
+        return new()
+        {
+            Name = Guid.NewGuid().ToString(),
+            Price = Rand.Next(1000)
+        };
+    }
+
     [Fact]
     public async Task GetItemAsync_WithNullItem_ReturnsNotFound()
     {
@@ -70,10 +79,7 @@ public class ItemsControllerTests
     [Fact]
     public async Task CreateItemAsync_ReceivingItem_ReturnsCreatedItem()
     {
-        var itemToCreate = new ItemRequestDto(){
-            Name = Guid.NewGuid().ToString(),
-            Price = Rand.Next(1000),
-        };
+        var itemToCreate = CreateRandomItemRequestDto();
 
         var controller = new ItemsController(repositoryStub.Object);
 
