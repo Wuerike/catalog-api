@@ -8,13 +8,7 @@ namespace CatalogApi.Models
         
         public static ItemResponseDto AsDto(this Item item)
         {
-            return new ItemResponseDto
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                CreatedAt = item.CreatedAt
-            };
+            return new ItemResponseDto(item.Id, item.Name, item.Price, item.CreatedAt);
         }
     }
 }
