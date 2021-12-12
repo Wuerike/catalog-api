@@ -1,12 +1,15 @@
 namespace CatalogApi.Models
 {
 
-    public record Item{
+    public class Item{
 
-        public Guid Id {get; init;}
-        public string? Name { get; init; }
-        public decimal Price { get; init; }
-        public DateTime CreatedAt { get; init; }
+        public Guid Id {get; set;}
+
+        public string? Name { get; set; }
+
+        public decimal Price { get; set; }
+        
+        public DateTime CreatedAt { get; set; }
 
     }
 }
