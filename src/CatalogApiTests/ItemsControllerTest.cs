@@ -118,4 +118,26 @@ public class ItemsControllerTests
         var result = await controller.UpdateItemAsync(Guid.NewGuid(), itemToUpdate);
         result.Should().BeOfType<NotFoundResult>();
     }
+
+    [Fact]
+    public async Task DeleteItemAsync_WithExistingItem_ReturnsNoContent()
+    {
+        var existingItem = CreateRandomItem();
+
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((existingItem));
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.DeleteItemAsync(Guid.NewGuid());
+        result.Should().BeOfType<NoContentResult>();
+    }
+
+    [Fact]
+    public async Task DeleteItemAsync_WithNoExistingItem_ReturnsNotFound()
+    {
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((Item)null);
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.DeleteItemAsync(Guid.NewGuid());
+        result.Should().BeOfType<NotFoundResult>();
+    }
 }
