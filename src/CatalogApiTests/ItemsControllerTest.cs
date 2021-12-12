@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CatalogApi.Controllers;
+using CatalogApi.Dtos;
 using CatalogApi.Models;
 using CatalogApi.Repositories;
 using FluentAssertions;
@@ -32,8 +34,7 @@ public class ItemsControllerTests
         repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((Item)null);
         var controller = new ItemsController(repositoryStub.Object);
 
-        var result = await  controller.GetItemAsync(Guid.NewGuid());
-
+        var result = await controller.GetItemAsync(Guid.NewGuid());
         result.Result.Should().BeOfType<NotFoundResult>();
     }
 
@@ -42,11 +43,27 @@ public class ItemsControllerTests
     {
         var expectedItem = CreateRandomItem();
         var expectedDto = expectedItem.AsDto();
+
         repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((expectedItem));
         var controller = new ItemsController(repositoryStub.Object);
 
-        var result = await  controller.GetItemAsync(Guid.NewGuid());
-
+        var result = await controller.GetItemAsync(Guid.NewGuid());
         result.Value.Should().BeEquivalentTo(expectedDto);
+    }
+
+    [Fact]
+    public async Task GetItemsAsync_WithExistingItem_ReturnsAllItems()
+    {
+        var expectedItems = new[]{CreateRandomItem(), CreateRandomItem(), CreateRandomItem()};
+        var expectedDtos = new ItemResponseDto[expectedItems.Length];
+
+        for (int i=0; i<expectedItems.Length; i++)
+            expectedDtos[i] = expectedItems[i].AsDto();
+        
+        repositoryStub.Setup(repo => repo.GetItemsAsync()).ReturnsAsync((expectedItems));
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.GetItemsAsync();
+        result.Value.Should().BeEquivalentTo(expectedDtos);
     }
 }
