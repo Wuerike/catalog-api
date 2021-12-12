@@ -66,5 +66,25 @@ public class ItemsControllerTests
             options => options.ComparingByMembers<Item>()
         );
     }
+
+    [Fact]
+    public async Task CreateItemAsync_ReceivingItem_ReturnsCreatedItem()
+    {
+        var itemToCreate = new ItemRequestDto(){
+            Name = Guid.NewGuid().ToString(),
+            Price = Rand.Next(1000),
+        };
+
+        var controller = new ItemsController(repositoryStub.Object);
+
+        var result = await controller.CreateItemAsync(itemToCreate);
+        var createdItem = (result.Result as CreatedAtActionResult).Value as ItemResponseDto;
+
+        createdItem.Should().BeEquivalentTo(
+            itemToCreate,
+            options => options.ComparingByMembers<ItemResponseDto>().ExcludingMissingMembers()
+        );
+        createdItem.Id.Should().NotBeEmpty();
+        createdItem.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, System.TimeSpan.FromSeconds(1));
     }
 }
