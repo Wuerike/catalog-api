@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+      "standard-version": "^9.3.2"
+    },
+    "version": "0.146.0"
+}
